@@ -9,6 +9,11 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 
+  private static final String RESOURCE_DIR = "res/";
+  private static final String BUNDLE_NAME  = RESOURCE_DIR + "ui-strings";
+  private static final String LAYOUT_NAME = RESOURCE_DIR + "life.fxml";
+private static final String WINDOW_TITLE_KEY = "title";
+
   public static void main(String[] args) {
     launch(args);
   }
@@ -17,13 +22,13 @@ public class Main extends Application {
   public void start(Stage primaryStage) throws Exception {
 
     ClassLoader classLoader = getClass().getClassLoader();
-    ResourceBundle bundle = ResourceBundle.getBundle("res/ui-strings");
+    ResourceBundle bundle = ResourceBundle.getBundle(BUNDLE_NAME);
     FXMLLoader fxmlLoader = new FXMLLoader(
-        classLoader.getResource("res/life.fxml"), bundle);
+        classLoader.getResource(LAYOUT_NAME), bundle);
     Parent parent = fxmlLoader.load(); // this inflates xml into gridpane object so parent refers to the                                          //grid pane.
     Scene scene = new Scene(parent);
     primaryStage.setScene(scene);
-    primaryStage.setTitle("Game of Life");
+    primaryStage.setTitle(bundle.getString(WINDOW_TITLE_KEY));
     primaryStage.setResizable(false);
 
     primaryStage.show(); // no scene in here
