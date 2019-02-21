@@ -51,8 +51,6 @@ public class Life {
     rng = new Random();
     updater = new Updater();
     terrain = new Cell[WORLD_SIZE][WORLD_SIZE];
-    densitySlider.valueProperty().addListener((v, oldVal, newVal) -> sliderValue
-        .setText(Long.toString(Math.round(densitySlider.getValue()))));
     reset(null);
   }
 

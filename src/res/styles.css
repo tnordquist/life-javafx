@@ -17,3 +17,9 @@ GridPane {
   -fx-max-height: 600px;
   -fx-pannable: true;
 }
+
+#densitySlider{
+  -fx-major-tick-unit: 1;
+  -fx-minor-tick-count: 0;
+  -fx-snap-to-ticks: true;
+}

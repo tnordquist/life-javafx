@@ -15,14 +15,6 @@
   xmlns:fx="http://javafx.com/fxml"
   fx:controller="edu.cnm.deepdive.life.controller.Life">
 
-  <fx:define>
-    <SimpleStringProperty fx:id="densityTooltipText"/>
-  </fx:define>
-
-  <fx:define>
-    <SimpleIntegerProperty fx:id="densitySliderValue"/>
-  </fx:define>
-
   <stylesheets>
     <URL value="@styles.css"/>
   </stylesheets>
@@ -51,14 +43,14 @@
     fx:id="densitySlider"
     min="0"
     max="100"
-    value="${densitySliderValue}"
+    value="25"
     GridPane.rowIndex="1"
     GridPane.columnIndex="1">
 
     <tooltip>
       <Tooltip
         fx:id="sliderValue"
-        text="${densityTooltipText}"/>
+        text="${densitySlider.value}"/>
     </tooltip>
 
   </Slider>
