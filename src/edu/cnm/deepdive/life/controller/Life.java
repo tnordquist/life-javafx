@@ -23,6 +23,10 @@ public class Life {
 
   public static final int INITIAL_DENSITY = 25;
   private static final int WORLD_SIZE = 200;
+  public static final String STOP = "stop";
+  public static final String GENERATION_DISPLAY = "generationDisplay";
+  public static final String POPULATION_DISPLAY = "populationDisplay";
+  public static final String START = "start";
 
   private World world;
   private Random rng;
@@ -67,7 +71,7 @@ public class Life {
   private void toggleRun(ActionEvent actionEvent) {
     if (toggleRun.isSelected()) {
       running = true;
-      toggleRun.setText(resources.getString("stop"));
+      toggleRun.setText(resources.getString(STOP));
       reset.setDisable(true);
       updater.start();
       new Runner().start();
@@ -86,15 +90,15 @@ public class Life {
     world.copyTerrain(terrain);
     terrainView.draw(terrain);
     generationDisplay.setText(
-        String.format(resources.getString("generationDisplay"), world.getGeneration()));
+        String.format(resources.getString(GENERATION_DISPLAY), world.getGeneration()));
     populationDisplay.setText(
-        String.format(resources.getString("populationDisplay"), world.getPopulation()));
+        String.format(resources.getString(POPULATION_DISPLAY), world.getPopulation()));
   }
 
   private void stop() {
     running = false;
     updater.stop();
-    toggleRun.setText(resources.getString("start"));
+    toggleRun.setText(resources.getString(START));
     toggleRun.setSelected(false);
     reset.setDisable(false);
   }

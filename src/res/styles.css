@@ -6,6 +6,19 @@ GridPane {
   -fx-spacing: 10px;
   -fx-hgap: 10px;
   -fx-vgap: 10px;
+  -fx-background-color: #b0c4de;
+  -fx-effect: innershadow(two-pass-box, darkred, 15.0, 0.0, 0.0, 0.0);
+}
+
+.ViewPane {
+  -fx-background-color: #d8bfd8;
+}
+
+.text {
+  -fx-background-color: blue;
+  -fx-font-weight: bold, italic;
+  -fx-padding: 24px;
+
 }
 
 #viewScroller {
@@ -16,10 +29,65 @@ GridPane {
   -fx-max-width: 600px;
   -fx-max-height: 600px;
   -fx-pannable: true;
+  -fx-background-color: #8b008b;
+}
+
+WoldView {
+  -fx-background-color: #66cdaa;
+}
+
+#populationDisplay{
+  -fx-font-size: 14px;
+  -fx-font-weight: bold;
+  -fx-padding: 1px;
+  -fx-alignment: right;
+}
+
+#generationDisplay {
+  -fx-font-size: 14px;
+  -fx-font-weight: bold;
+}
+
+
+.scroll-pane {
+  -fx-background-color: blue;
 }
 
 #densitySlider{
   -fx-major-tick-unit: 1;
   -fx-minor-tick-count: 0;
   -fx-snap-to-ticks: true;
+  -fx-background-color: #8b0000;
+}
+
+#reset {
+  -fx-background-color: #cd5c5c;
+  -fx-font-weight: bold;
+  -fx-padding: 5px;
+}
+
+#toggleFit {
+  -fx-background-color: #cd5c5c;
+  -fx-font-weight: bold;
+  -fx-padding: 5px;
+}
+
+#stop {
+  -fx-background-color: #8b0000;
+}
+
+
+.button {
+  -fx-background-color: green;
+  -fx-font-weight: bold,italic;
+}
+
+.Button {
+  -fx-background-color: blue;
+}
+
+.check-box .text-field{
+  -fx-background-color: blue;
+  -fx-font-weight: bold, italic;
+  -fx-padding: 24px;
 }
