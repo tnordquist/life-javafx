@@ -6,33 +6,36 @@ import edu.cnm.deepdive.life.view.WorldView;
 import java.util.Deque;
 import java.util.LinkedList;
 import java.util.Random;
+import java.util.ResourceBundle;
 import javafx.animation.AnimationTimer;
 import javafx.application.Platform;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Slider;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.Tooltip;
+import javafx.scene.text.Text;
 
 public class Life {
 
+  public static final int INITIAL_DENSITY = 25;
   private static final int WORLD_SIZE = 200;
-
 
   private World world;
   private Random rng;
   private Cell[][] terrain;
   private boolean running;
   private Updater updater;
+  private long initialTerrainViewWidth;
+  private long initialTerrainViewHeight;
 
   @FXML
-  private StringProperty densityTooltipText;
+  private Text generationDisplay;
   @FXML
-  private IntegerProperty densitySliderValue;
+  private Text populationDisplay;
   @FXML
   private ScrollPane viewScroller;
   @FXML
@@ -45,12 +48,18 @@ public class Life {
   private Tooltip sliderValue;
   @FXML
   private Button reset;
+  @FXML
+  private CheckBox toggleFit;
+  @FXML
+  private ResourceBundle resources;
 
   @FXML
   private void initialize() {
     rng = new Random();
     updater = new Updater();
     terrain = new Cell[WORLD_SIZE][WORLD_SIZE];
+    initialTerrainViewHeight = Math.round(terrainView.getHeight());
+    initialTerrainViewWidth = Math.round(terrainView.getWidth());
     reset(null);
   }
 
@@ -58,13 +67,12 @@ public class Life {
   private void toggleRun(ActionEvent actionEvent) {
     if (toggleRun.isSelected()) {
       running = true;
+      toggleRun.setText(resources.getString("stop"));
       reset.setDisable(true);
       updater.start();
       new Runner().start();
-
     } else {
       stop();
-      //disable
     }
   }
 
@@ -77,13 +85,32 @@ public class Life {
   private void updateDisplay() {
     world.copyTerrain(terrain);
     terrainView.draw(terrain);
+    generationDisplay.setText(
+        String.format(resources.getString("generationDisplay"), world.getGeneration()));
+    populationDisplay.setText(
+        String.format(resources.getString("populationDisplay"), world.getPopulation()));
   }
 
   private void stop() {
     running = false;
     updater.stop();
+    toggleRun.setText(resources.getString("start"));
     toggleRun.setSelected(false);
     reset.setDisable(false);
+  }
+
+  @FXML
+  private void toggleFit(ActionEvent actionEvent) {
+    if (toggleFit.isSelected()) {
+      terrainView.setWidth(viewScroller.getWidth() - 2);
+      terrainView.setHeight(viewScroller.getHeight() - 2);
+    } else {
+      terrainView.setWidth(initialTerrainViewWidth);
+      terrainView.setHeight(initialTerrainViewHeight);
+    }
+    if (!running) {
+      updateDisplay();
+    }
   }
 
   private class Runner extends Thread {
@@ -106,6 +133,7 @@ public class Life {
           }
         }
       }
+      Platform.runLater(() -> updateDisplay());
     }
 
   }
